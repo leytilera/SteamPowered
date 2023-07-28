@@ -7,11 +7,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineTileEntity;
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineTileEntity;
 import com.teammoeg.steampowered.content.engine.SteamEngineTileEntity;
 
 import net.minecraft.world.level.block.Block;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
-@Mixin(FlywheelTileEntity.class)
-public abstract class MixinFlywheel extends GeneratingKineticTileEntity{
+@Mixin(FlywheelBlockEntity.class)
+public abstract class MixinFlywheel extends GeneratingKineticBlockEntity{
 	public MixinFlywheel(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}

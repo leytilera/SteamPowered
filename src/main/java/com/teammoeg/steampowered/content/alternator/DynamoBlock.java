@@ -18,11 +18,11 @@
 
 package com.teammoeg.steampowered.content.alternator;
 
-import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock;
-import com.simibubi.create.content.contraptions.base.IRotate;
-import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.item.ItemDescription.Palette;
+import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.content.kinetics.base.IRotate;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.VoxelShaper;
 import com.teammoeg.steampowered.block.SPShapes;
@@ -57,7 +57,7 @@ import java.util.Random;
  * @author MRH0
  * @author yuesha-yc
  */
-public class DynamoBlock extends DirectionalKineticBlock implements ITE<DynamoTileEntity>, IRotate {
+public class DynamoBlock extends DirectionalKineticBlock implements IBE<DynamoTileEntity>, IRotate {
 
     public static final BooleanProperty REDSTONE_LOCKED = BooleanProperty.create("redstone_locked");
     public static final VoxelShaper DYNAMO_SHAPE = SPShapes
@@ -101,12 +101,12 @@ public class DynamoBlock extends DirectionalKineticBlock implements ITE<DynamoTi
     }
 
     @Override
-    public Class<DynamoTileEntity> getTileEntityClass() {
+    public Class<DynamoTileEntity> getBlockEntityClass() {
         return DynamoTileEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends DynamoTileEntity> getTileEntityType() {
+    public BlockEntityType<? extends DynamoTileEntity> getBlockEntityType() {
         return SPTiles.DYNAMO.get();
     }
 
@@ -130,14 +130,15 @@ public class DynamoBlock extends DirectionalKineticBlock implements ITE<DynamoTi
     	if(Screen.hasShiftDown()) {
     		t.add(new TranslatableComponent("tooltip.steampowered.alternator.thanks").withStyle(ChatFormatting.GOLD));
     	}else {
-    		t.add(TooltipHelper.holdShift(Palette.Gray,false));
+    		t.add(TooltipHelper.holdShift(Palette.GRAY,false));
     	}
     	if(Screen.hasControlDown()) {
     		t.add(new TranslatableComponent("tooltip.steampowered.alternator.redstone").withStyle(ChatFormatting.RED));
     	}else {
     		t.add(Lang.translate("tooltip.holdForControls", Lang.translate("tooltip.keyCtrl")
-			.withStyle(ChatFormatting.GRAY))
-			.withStyle(ChatFormatting.DARK_GRAY));
+			.style(ChatFormatting.GRAY))
+			.style(ChatFormatting.DARK_GRAY)
+            .component());
     	}
         /*if (ModList.get().isLoaded("createaddition")) {
             if (SPConfig.SERVER.disableDynamo.get()) {

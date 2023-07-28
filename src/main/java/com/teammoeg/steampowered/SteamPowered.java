@@ -23,15 +23,15 @@ import javax.annotation.Nonnull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.simibubi.create.foundation.block.BlockStressValues;
+import com.simibubi.create.content.kinetics.BlockStressValues;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.repack.registrate.util.nullness.NonNullSupplier;
 import com.teammoeg.steampowered.client.Particles;
 import com.teammoeg.steampowered.client.SteamPoweredClient;
 import com.teammoeg.steampowered.network.PacketHandler;
 import com.teammoeg.steampowered.registrate.SPBlocks;
 import com.teammoeg.steampowered.registrate.SPItems;
 import com.teammoeg.steampowered.registrate.SPTiles;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +64,7 @@ public class SteamPowered {
         }
     };
 
-    public static final NonNullSupplier<CreateRegistrate> registrate = CreateRegistrate.lazy(MODID);
+    public static final CreateRegistrate registrate = CreateRegistrate.create(MODID);
 
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
@@ -73,6 +73,8 @@ public class SteamPowered {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
+
+		registrate.registerEventListeners(FMLJavaModLoadingContext.get().getModEventBus());
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                 () -> () -> SteamPoweredClient.addClientListeners(MinecraftForge.EVENT_BUS, FMLJavaModLoadingContext.get().getModEventBus()));

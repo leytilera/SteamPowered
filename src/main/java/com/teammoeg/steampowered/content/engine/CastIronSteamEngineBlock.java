@@ -20,9 +20,9 @@ package com.teammoeg.steampowered.content.engine;
 
 import java.util.List;
 
-import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.item.ItemDescription.Palette;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.teammoeg.steampowered.SPConfig;
 import com.teammoeg.steampowered.client.ClientUtils;
 import com.teammoeg.steampowered.registrate.SPTiles;
@@ -40,13 +40,13 @@ import net.minecraft.world.level.BlockGetter;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-public class CastIronSteamEngineBlock extends SteamEngineBlock implements ITE<CastIronSteamEngineTileEntity> {
+public class CastIronSteamEngineBlock extends SteamEngineBlock implements IBE<CastIronSteamEngineTileEntity> {
     public CastIronSteamEngineBlock(Properties builder) {
         super(builder);
     }
 
     @Override
-    public BlockEntityType<? extends CastIronSteamEngineTileEntity> getTileEntityType() {
+    public BlockEntityType<? extends CastIronSteamEngineTileEntity> getBlockEntityType() {
         return SPTiles.CAST_IRON_STEAM_ENGINE.get();
     }
     @Override
@@ -57,12 +57,12 @@ public class CastIronSteamEngineBlock extends SteamEngineBlock implements ITE<Ca
     		if(ClientUtils.hasGoggles()) 
     		t.add(new TranslatableComponent("tooltip.steampowered.engine.steamconsume",SPConfig.COMMON.castIronFlywheelSteamConsumptionPerTick.get()).withStyle(ChatFormatting.GOLD));
     	}else {
-    		t.add(TooltipHelper.holdShift(Palette.Gray,false));
+    		t.add(TooltipHelper.holdShift(Palette.GRAY,false));
     	}
 		super.appendHoverText(i,w,t,f);
 	}
     @Override
-    public Class<CastIronSteamEngineTileEntity> getTileEntityClass() {
+    public Class<CastIronSteamEngineTileEntity> getBlockEntityClass() {
         return CastIronSteamEngineTileEntity.class;
     }
 }

@@ -18,9 +18,8 @@
 
 package com.teammoeg.steampowered.content.cogwheel;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
-import com.simibubi.create.content.contraptions.relays.elementary.CogWheelBlock;
-import com.simibubi.create.content.contraptions.relays.elementary.SimpleKineticTileEntity;
+import com.simibubi.create.content.kinetics.simpleRelays.CogWheelBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
 import com.teammoeg.steampowered.registrate.SPTiles;
 
 import net.minecraft.core.BlockPos;
@@ -40,7 +39,7 @@ public class MetalCogwheelBlock extends CogWheelBlock {
         super(large, properties);
     }
 
-    public BlockEntityType<? extends SimpleKineticTileEntity> getTileEntityType() {
+    public BlockEntityType<? extends SimpleKineticBlockEntity> getTileEntityType() {
         return SPTiles.METAL_COGWHEEL.get();
     }
 

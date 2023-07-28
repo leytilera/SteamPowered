@@ -23,11 +23,9 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.jozufozu.flywheel.core.PartialModel;
-import com.simibubi.create.AllBlockPartials;
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllShapes;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.FurnaceEngineTileEntity;
-import com.simibubi.create.foundation.block.ITE;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
 import com.teammoeg.steampowered.FluidRegistry;
 import com.teammoeg.steampowered.ItemRegistry;
 import com.teammoeg.steampowered.client.Particles;
@@ -98,7 +96,7 @@ public class SteamEngineBlock extends EngineBlock {
     @Nullable
     @Override
     public PartialModel getFrameModel() {
-        return AllBlockPartials.FURNACE_GENERATOR_FRAME;
+        return AllPartialModels.FURNACE_GENERATOR_FRAME;
     }
 
     @Override

@@ -18,8 +18,8 @@
 
 package com.teammoeg.steampowered.content.flywheel;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.teammoeg.steampowered.registrate.SPTiles;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -29,7 +29,7 @@ public class CastIronSteamFlywheelBlock extends FlywheelBlock {
     }
 
     @Override
-    public BlockEntityType<? extends FlywheelTileEntity> getTileEntityType() {
+    public BlockEntityType<? extends FlywheelBlockEntity> getBlockEntityType() {
         return SPTiles.CAST_IRON_STEAM_FLYWHEEL.get();
     }
 }

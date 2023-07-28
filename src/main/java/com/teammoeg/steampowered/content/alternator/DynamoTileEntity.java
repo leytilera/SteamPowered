@@ -20,7 +20,7 @@ package com.teammoeg.steampowered.content.alternator;
 
 import java.util.List;
 
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.foundation.utility.Lang;
 import com.teammoeg.steampowered.SPConfig;
 
@@ -45,7 +45,7 @@ import net.minecraftforge.energy.IEnergyStorage;
  * @author MRH0
  * @author yuesha-yc
  */
-public class DynamoTileEntity extends KineticTileEntity {
+public class DynamoTileEntity extends KineticBlockEntity {
 
     protected final InternalEnergyStorage energy;
     private LazyOptional<IEnergyStorage> lazyEnergy;
@@ -70,7 +70,7 @@ public class DynamoTileEntity extends KineticTileEntity {
         }
 		tooltip.add(new TextComponent(spacing).append(new TranslatableComponent("tooltip.steampowered.energy.production").withStyle(ChatFormatting.GRAY)));
 		tooltip.add(new TextComponent(spacing).append(new TextComponent(" " + format(getEnergyProductionRate((int) (isSpeedRequirementFulfilled() ? getSpeed() : 0))) + "fe/t ") // fix
-		        .withStyle(ChatFormatting.AQUA)).append(Lang.translate("gui.goggles.at_current_speed").withStyle(ChatFormatting.DARK_GRAY)));
+		        .withStyle(ChatFormatting.AQUA)).append(Lang.translate("gui.goggles.at_current_speed").style(ChatFormatting.DARK_GRAY).component()));
 		return super.addToGoggleTooltip(tooltip, isPlayerSneaking);
     }
 
@@ -136,8 +136,8 @@ public class DynamoTileEntity extends KineticTileEntity {
     }
 
     @Override
-    public void setRemoved() {
-        super.setRemoved();
+    public void invalidate() {
+        super.invalidate();
         lazyEnergy.invalidate();
     }
 

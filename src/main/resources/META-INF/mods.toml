@@ -28,14 +28,14 @@ Expanding Create mod to the Steam Age
 [[dependencies.steampowered]]
     modId="create"
     mandatory=true
-    versionRange="[v0.4.1,)"
+    versionRange="[v0.5.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.steampowered]]
     modId="flywheel"
     mandatory=true
-    versionRange="[1.18-0.6.2,)"
+    versionRange="[0.6.9,)"
     ordering="AFTER"
     side="CLIENT"
 

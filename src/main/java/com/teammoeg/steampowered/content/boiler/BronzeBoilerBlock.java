@@ -18,7 +18,7 @@
 
 package com.teammoeg.steampowered.content.boiler;
 
-import com.simibubi.create.foundation.block.ITE;
+import com.simibubi.create.foundation.block.IBE;
 import com.teammoeg.steampowered.SPConfig;
 import com.teammoeg.steampowered.registrate.SPTiles;
 
@@ -29,7 +29,7 @@ import net.minecraft.world.level.BlockGetter;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
-public class BronzeBoilerBlock extends BoilerBlock implements ITE<BronzeBoilerTileEntity> {
+public class BronzeBoilerBlock extends BoilerBlock implements IBE<BronzeBoilerTileEntity> {
     public BronzeBoilerBlock(Properties properties) {
         super(properties);
     }
@@ -40,12 +40,12 @@ public class BronzeBoilerBlock extends BoilerBlock implements ITE<BronzeBoilerTi
 	}
 
     @Override
-    public Class<BronzeBoilerTileEntity> getTileEntityClass() {
+    public Class<BronzeBoilerTileEntity> getBlockEntityClass() {
         return BronzeBoilerTileEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends BronzeBoilerTileEntity> getTileEntityType() {
+    public BlockEntityType<? extends BronzeBoilerTileEntity> getBlockEntityType() {
         return SPTiles.BRONZE_BOILER.get();
     }
 }

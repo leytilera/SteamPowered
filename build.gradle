@@ -89,6 +89,11 @@ mixin {
 repositories {
     mavenLocal()
     maven {
+        //location of the maven for mixed mappings, registrate, and Flywheel
+        name = "tilera maven"
+        url = "https://maven.tilera.xyz/"
+    }
+    maven {
         // location of the maven that hosts JEI files (And TiC)
         name "Progwml6 maven"
         url "https://dvs1.progwml6.com/files/maven/"
@@ -97,6 +102,18 @@ repositories {
         //location of the maven for mixed mappings, registrate, and Flywheel
         name = "tterrag maven"
         url = "https://maven.tterrag.com/"
+    }
+    maven {
+        // location of the maven for Curios API
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        // location of maven for CC: Tweaked
+        name = "squiddev"
+        url = "https://squiddev.cc/maven/"
+        content {
+            includeGroup "org.squiddev"
+        }
     }
     maven {
         //location of the maven for vazkii's mods
@@ -114,8 +131,11 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:create-328085:3737418")
-    implementation fg.deobf("curse.maven:flywheel-486392:3737402")
+    //implementation fg.deobf("curse.maven:create-328085:3737418")
+    //implementation fg.deobf("curse.maven:flywheel-486392:3737402")
+    implementation fg.deobf("com.simibubi.create:create-1.18.2:0.5.1.c:all") 
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.18.2:0.6.9-101")
+    implementation fg.deobf("com.tterrag.registrate:Registrate:MC1.18.2-1.1.3")
     //implementation fg.deobf("curse.maven:immersive-engineering-231951:3377691")
     //implementation fg.deobf("curse.maven:create-alloyed-564792:3602444")
 

@@ -1,9 +1,10 @@
 package com.teammoeg.steampowered;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineBlock;
-import com.simibubi.create.foundation.block.BlockStressDefaults;
-import com.simibubi.create.foundation.block.BlockStressValues.IStressValueProvider;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.BlockStressValues.IStressValueProvider;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
+import com.simibubi.create.foundation.utility.Couple;
 import com.teammoeg.steampowered.content.alternator.DynamoBlock;
 
 import net.minecraft.world.level.block.Block;
@@ -49,6 +50,11 @@ public class SPStress implements IStressValueProvider {
 	public boolean hasImpact(Block arg0) {
 		if(arg0 instanceof FlywheelBlock)return false;
 		return true;
+	}
+
+	@Override
+	public Couple<Integer> getGeneratedRPM(Block block) {
+		return null; //TODO: WTF
 	}
 
 }

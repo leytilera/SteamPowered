@@ -18,8 +18,8 @@
 
 package com.teammoeg.steampowered.ponder;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock.ConnectionState;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock.ConnectionState;
 import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;

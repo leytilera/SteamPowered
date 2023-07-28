@@ -21,12 +21,12 @@ package com.teammoeg.steampowered.client.render;
 import com.jozufozu.flywheel.backend.Backend;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.content.contraptions.base.HorizontalKineticBlock;
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
-import com.simibubi.create.content.contraptions.base.KineticTileEntityRenderer;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import com.simibubi.create.foundation.utility.AngleHelper;
@@ -43,19 +43,20 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.util.Mth;
 
-public class BronzeFlywheelRenderer extends KineticTileEntityRenderer {
+public class BronzeFlywheelRenderer extends KineticBlockEntityRenderer<KineticBlockEntity> {
     public BronzeFlywheelRenderer(Context context) {
         super(context);
     }
 
-    protected void renderSafe(KineticTileEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+    @Override
+    protected void renderSafe(KineticBlockEntity te, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(te, partialTicks, ms, buffer, light, overlay);
         if (!Backend.canUseInstancing(te.getLevel())) {
             BlockState blockState = te.getBlockState();
-            FlywheelTileEntity wte = (FlywheelTileEntity) te;
+            FlywheelBlockEntity wte = (FlywheelBlockEntity) te;
             // Mixin starts
             FlywheelTileEntityAccess access = (FlywheelTileEntityAccess) wte;
-            float speed = access.getVisualSpeed().get(partialTicks) * 3.0F / 10.0F;
+            float speed = access.getVisualSpeed().getValue(partialTicks) * 3.0F / 10.0F;
             float angle = access.getAngle() + speed * partialTicks;
             // Mixin ends
             VertexConsumer vb = buffer.getBuffer(RenderType.solid());
@@ -74,7 +75,7 @@ public class BronzeFlywheelRenderer extends KineticTileEntityRenderer {
         }
     }
 
-    private void renderFlywheel(KineticTileEntity te, PoseStack ms, int light, BlockState blockState, float angle, VertexConsumer vb) {
+    private void renderFlywheel(KineticBlockEntity te, PoseStack ms, int light, BlockState blockState, float angle, VertexConsumer vb) {
         BlockState referenceState = blockState.rotate(Rotation.CLOCKWISE_90);
         Direction facing = (Direction) referenceState.getValue(BlockStateProperties.HORIZONTAL_FACING);
         SuperByteBuffer wheel = CachedBufferer.partialFacing(SPBlockPartials.BRONZE_FLYWHEEL, referenceState, facing);
@@ -82,8 +83,9 @@ public class BronzeFlywheelRenderer extends KineticTileEntityRenderer {
         wheel.renderInto(ms, vb);
     }
 
-    protected SuperByteBuffer getRotatedModel(KineticTileEntity te) {
-        return CachedBufferer.partialFacing(AllBlockPartials.SHAFT_HALF, te.getBlockState(), ((Direction) te.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)).getOpposite());
+    @Override
+    protected SuperByteBuffer getRotatedModel(KineticBlockEntity te, BlockState state) {
+        return CachedBufferer.partialFacing(AllPartialModels.SHAFT_HALF, te.getBlockState(), ((Direction) te.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)).getOpposite());
     }
 
     protected SuperByteBuffer transformConnector(SuperByteBuffer buffer, boolean upper, boolean rotating, float angle, boolean flip) {

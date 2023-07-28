@@ -21,8 +21,8 @@ package com.teammoeg.steampowered.content.burner;
 import java.util.List;
 import java.util.Random;
 
-import com.simibubi.create.foundation.item.ItemDescription.Palette;
 import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipHelper.Palette;
 import com.simibubi.create.foundation.utility.Lang;
 import com.teammoeg.steampowered.client.ClientUtils;
 import net.minecraft.world.item.Items;
@@ -126,14 +126,15 @@ public abstract class BurnerBlock extends Block {
     			t.add(new TranslatableComponent("tooltip.steampowered.burner.danger").withStyle(ChatFormatting.RED));
     		}
     	}else {
-    		t.add(TooltipHelper.holdShift(Palette.Gray,false));
+    		t.add(TooltipHelper.holdShift(Palette.GRAY,false));
     	}
     	if(Screen.hasControlDown()) {
     		t.add(new TranslatableComponent("tooltip.steampowered.burner.redstone").withStyle(ChatFormatting.RED));
     	}else {
     		t.add(Lang.translate("tooltip.holdForControls", Lang.translate("tooltip.keyCtrl")
-			.withStyle(ChatFormatting.GRAY))
-			.withStyle(ChatFormatting.DARK_GRAY));
+			.style(ChatFormatting.GRAY))
+			.style(ChatFormatting.DARK_GRAY)
+            .component());
     	}
 		super.appendHoverText(i,w,t,f);
 	}

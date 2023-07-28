@@ -18,16 +18,16 @@
 
 package com.teammoeg.steampowered.mixin;
 
-import com.simibubi.create.foundation.utility.animation.InterpolatedChasingValue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
+import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 
-@Mixin(FlywheelTileEntity.class)
+@Mixin(FlywheelBlockEntity.class)
 public interface FlywheelTileEntityAccess {
     @Accessor(remap = false)
-    InterpolatedChasingValue getVisualSpeed();
+    LerpedFloat getVisualSpeed();
 
     @Accessor(remap = false)
     float getAngle();

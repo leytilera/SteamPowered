@@ -27,11 +27,11 @@ import com.jozufozu.flywheel.api.instance.DynamicInstance;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.content.contraptions.base.KineticTileInstance;
-import com.simibubi.create.content.contraptions.base.flwdata.RotatingData;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
+import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
+import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.teammoeg.steampowered.block.SPBlockPartials;
@@ -44,10 +44,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import java.util.Collections;
 import java.util.List;
 
-import static com.simibubi.create.content.contraptions.base.HorizontalKineticBlock.HORIZONTAL_FACING;
+import static com.simibubi.create.content.kinetics.base.HorizontalKineticBlock.HORIZONTAL_FACING;
 
 
-public class BronzeFlywheelInstance extends KineticTileInstance<FlywheelTileEntity> implements DynamicInstance {
+public class BronzeFlywheelInstance extends KineticBlockEntityInstance<FlywheelBlockEntity> implements DynamicInstance {
     protected final Direction facing;
     protected final Direction connection;
 
@@ -66,7 +66,7 @@ public class BronzeFlywheelInstance extends KineticTileInstance<FlywheelTileEnti
 
     protected float lastAngle = Float.NaN;
 
-    public BronzeFlywheelInstance(MaterialManager modelManager, FlywheelTileEntity tile) {
+    public BronzeFlywheelInstance(MaterialManager modelManager, FlywheelBlockEntity tile) {
         super(modelManager, tile);
 
         facing = blockState.getValue(HORIZONTAL_FACING);
@@ -108,7 +108,7 @@ public class BronzeFlywheelInstance extends KineticTileInstance<FlywheelTileEnti
 
         // Mixin
         FlywheelTileEntityAccess access = (FlywheelTileEntityAccess) blockEntity;
-        float speed = access.getVisualSpeed().get(partialTicks) * 3 / 10f;
+        float speed = access.getVisualSpeed().getValue(partialTicks) * 3 / 10f;
         float angle = access.getAngle() + speed * partialTicks;
 
         if (Math.abs(angle - lastAngle) < 0.001) return;
@@ -185,7 +185,7 @@ public class BronzeFlywheelInstance extends KineticTileInstance<FlywheelTileEnti
 
     protected Instancer<RotatingData> shaftModel() {
         Direction opposite = facing.getOpposite();
-        return getRotatingMaterial().getModel(AllBlockPartials.SHAFT_HALF, blockState, opposite);
+        return getRotatingMaterial().getModel(AllPartialModels.SHAFT_HALF, blockState, opposite);
     }
 
     protected void transformConnector(TransformStack ms, boolean upper, boolean rotating, float angle, boolean flip) {

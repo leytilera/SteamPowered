@@ -18,11 +18,11 @@
 
 package com.teammoeg.steampowered.content.engine;
 
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.FlywheelTileEntity;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineBlock;
-import com.simibubi.create.content.contraptions.components.flywheel.engine.EngineTileEntity;
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
+import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
+import com.simibubi.create.content.kinetics.flywheel.engine.EngineTileEntity;
 import com.teammoeg.steampowered.FluidRegistry;
 import com.teammoeg.steampowered.SPTags;
 import net.minecraft.ChatFormatting;
@@ -168,13 +168,13 @@ public abstract class SteamEngineTileEntity extends EngineTileEntity implements 
 						|| FlywheelBlock.getConnection(wheelState) == engineFacing.getOpposite()) {
 					BlockEntity te = this.level.getBlockEntity(wheelPos);
 					if (!te.isRemoved()) {
-						if (te instanceof FlywheelTileEntity) {
+						if (te instanceof FlywheelBlockEntity) {
 							if (!FlywheelBlock.isConnected(wheelState)) {
 								FlywheelBlock.setConnection(this.level, te.getBlockPos(), te.getBlockState(),
 										engineFacing.getOpposite());
 							}
 
-							this.poweredWheel = (FlywheelTileEntity) te;
+							this.poweredWheel = (FlywheelBlockEntity) te;
 							this.refreshWheelSpeed();
 						}
 
