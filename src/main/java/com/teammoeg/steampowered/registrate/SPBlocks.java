@@ -26,9 +26,9 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 import javax.annotation.Nonnull;
 
 import com.simibubi.create.AllTags;
+import com.simibubi.create.AllTags.AllBlockTags;
 import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelGenerator;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
 import com.simibubi.create.foundation.data.BlockStateGen;
@@ -50,9 +50,13 @@ import com.teammoeg.steampowered.content.engine.SteelSteamEngineBlock;
 import com.teammoeg.steampowered.content.flywheel.BronzeSteamFlywheelBlock;
 import com.teammoeg.steampowered.content.flywheel.CastIronSteamFlywheelBlock;
 import com.teammoeg.steampowered.content.flywheel.SteelSteamFlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.engine.FurnaceEngineBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelGenerator;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -228,6 +232,27 @@ public class SPBlocks {
             .item()
             .transform(customItemModel())
             .register();
+
+    public static final BlockEntry<FlywheelBlock> FLYWHEEL = REGISTRATE.block("flywheel", FlywheelBlock::new)
+	    .initialProperties(SharedProperties::softMetal)
+	    .properties(p -> p.color(MaterialColor.TERRACOTTA_YELLOW))
+	    .properties(BlockBehaviour.Properties::noOcclusion)
+	    .transform(axeOrPickaxe())
+	    .transform(BlockStressDefaults.setNoImpact())
+	    .blockstate(new FlywheelGenerator()::generate)
+	    .item()
+	    .transform(customItemModel())
+	    .register();
+
+    public static final BlockEntry<FurnaceEngineBlock> FURNACE_ENGINE = Create.REGISTRATE.block("furnace_engine", FurnaceEngineBlock::new)
+	    .initialProperties(SharedProperties::softMetal)
+	    .transform(pickaxeOnly())
+	    .tag(AllBlockTags.BRITTLE.tag)
+	    .blockstate(BlockStateGen.horizontalBlockProvider(true))
+	    .transform(BlockStressDefaults.setCapacity(1024.0))
+	    .item()
+	    .transform(customItemModel())
+	    .register();
 
     public static void register() {
         /*Create.REGISTRATE.addToSection(BRONZE_STEAM_ENGINE, AllSections.KINETICS);

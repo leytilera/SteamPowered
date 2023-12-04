@@ -18,8 +18,8 @@
 
 package com.teammoeg.steampowered.content.flywheel;
 
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlockEntity;
 import com.teammoeg.steampowered.registrate.SPTiles;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 

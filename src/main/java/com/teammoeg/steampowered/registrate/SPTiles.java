@@ -18,9 +18,9 @@
 
 package com.teammoeg.steampowered.registrate;
 
+import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.base.SingleRotatingInstance;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.teammoeg.steampowered.SteamPowered;
 import com.teammoeg.steampowered.client.instance.BronzeFlywheelInstance;
@@ -40,6 +40,12 @@ import com.teammoeg.steampowered.content.cogwheel.MetalCogwheelTileEntity;
 import com.teammoeg.steampowered.content.engine.BronzeSteamEngineTileEntity;
 import com.teammoeg.steampowered.content.engine.CastIronSteamEngineTileEntity;
 import com.teammoeg.steampowered.content.engine.SteelSteamEngineTileEntity;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineInstance;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineRenderer;
+import com.teammoeg.steampowered.create.flywheel.engine.FurnaceEngineTileEntity;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlockEntity;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelInstance;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 
@@ -125,6 +131,20 @@ public class SPTiles {
             .validBlocks(SPBlocks.STEEL_FLYWHEEL)
             .renderer(() -> SteelFlywheelRenderer::new)
             .register();
+
+    public static final BlockEntityEntry<FlywheelBlockEntity> FLYWHEEL = REGISTRATE
+            .blockEntity("flywheel", FlywheelBlockEntity::new)
+            .instance(() -> FlywheelInstance::new, false)
+            .validBlocks(SPBlocks.FLYWHEEL)
+            .renderer(() -> FlywheelRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<FurnaceEngineTileEntity> FURNACE_ENGINE = Create.REGISTRATE
+	    .blockEntity("furnace_engine", FurnaceEngineTileEntity::new)
+	    .instance(() -> EngineInstance::new, false)
+	    .validBlocks(SPBlocks.FURNACE_ENGINE)
+	    .renderer(() -> EngineRenderer::new)
+	    .register();
 
     public static void register() {
     }

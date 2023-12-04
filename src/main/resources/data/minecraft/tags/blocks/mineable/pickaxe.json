@@ -19,6 +19,8 @@
     "steampowered:alternator",
     "steampowered:bronze_flywheel",
     "steampowered:cast_iron_flywheel",
-    "steampowered:steel_flywheel"
+    "steampowered:steel_flywheel",
+    "create:furnace_engine",
+    "steampowered:flywheel"
   ]
 }

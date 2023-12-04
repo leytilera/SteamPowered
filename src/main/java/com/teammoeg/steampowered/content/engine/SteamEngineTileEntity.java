@@ -19,12 +19,13 @@
 package com.teammoeg.steampowered.content.engine;
 
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
-import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
-import com.simibubi.create.content.kinetics.flywheel.engine.EngineTileEntity;
 import com.teammoeg.steampowered.FluidRegistry;
 import com.teammoeg.steampowered.SPTags;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineBlock;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineTileEntity;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlockEntity;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -25,13 +25,12 @@ import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.teammoeg.steampowered.block.SPBlockPartials;
-import com.teammoeg.steampowered.mixin.FlywheelTileEntityAccess;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlockEntity;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -55,9 +54,8 @@ public class CastIronFlywheelRenderer extends KineticBlockEntityRenderer<Kinetic
             BlockState blockState = te.getBlockState();
             FlywheelBlockEntity wte = (FlywheelBlockEntity) te;
             // Mixin starts
-            FlywheelTileEntityAccess access = (FlywheelTileEntityAccess) wte;
-            float speed = access.getVisualSpeed().getValue(partialTicks) * 3.0F / 10.0F;
-            float angle = access.getAngle() + speed * partialTicks;
+            float speed = wte.visualSpeed.getValue(partialTicks) * 3.0F / 10.0F;
+            float angle = wte.angle + speed * partialTicks;
             // Mixin ends
             VertexConsumer vb = buffer.getBuffer(RenderType.solid());
             if (FlywheelBlock.isConnected(blockState)) {

@@ -30,12 +30,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
 import com.simibubi.create.content.kinetics.base.flwdata.RotatingData;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlockEntity;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.teammoeg.steampowered.block.SPBlockPartials;
-import com.teammoeg.steampowered.mixin.FlywheelTileEntityAccess;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlockEntity;
+
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Rotation;
@@ -97,8 +97,7 @@ public class BronzeFlywheelInstance extends KineticBlockEntityInstance<FlywheelB
         }
 
         // Mixin
-        FlywheelTileEntityAccess access = (FlywheelTileEntityAccess) tile;
-        animate(access.getAngle());
+        animate(tile.angle);
     }
 
 
@@ -107,9 +106,8 @@ public class BronzeFlywheelInstance extends KineticBlockEntityInstance<FlywheelB
         float partialTicks = AnimationTickHolder.getPartialTicks();
 
         // Mixin
-        FlywheelTileEntityAccess access = (FlywheelTileEntityAccess) blockEntity;
-        float speed = access.getVisualSpeed().getValue(partialTicks) * 3 / 10f;
-        float angle = access.getAngle() + speed * partialTicks;
+        float speed = blockEntity.visualSpeed.getValue(partialTicks) * 3 / 10f;
+        float angle = blockEntity.angle + speed * partialTicks;
 
         if (Math.abs(angle - lastAngle) < 0.001) return;
 

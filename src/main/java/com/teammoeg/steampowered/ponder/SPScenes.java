@@ -18,8 +18,6 @@
 
 package com.teammoeg.steampowered.ponder;
 
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock.ConnectionState;
 import com.simibubi.create.foundation.ponder.PonderPalette;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
@@ -30,6 +28,8 @@ import com.teammoeg.steampowered.SPConfig;
 import com.teammoeg.steampowered.content.alternator.DynamoBlock;
 import com.teammoeg.steampowered.content.burner.BurnerBlock;
 import com.teammoeg.steampowered.content.engine.SteamEngineBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock.ConnectionState;
 import com.teammoeg.steampowered.registrate.SPBlocks;
 
 import net.minecraft.world.level.block.LeverBlock;

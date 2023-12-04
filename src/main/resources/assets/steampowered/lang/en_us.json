@@ -22,6 +22,8 @@
   "block.steampowered.bronze_burner" : "Bronze Burning Chamber",
   "block.steampowered.cast_iron_burner" : "Cast Iron Burning Chamber",
   "block.steampowered.steel_burner" : "Steel Burning Chamber",
+  "block.steampowered.flywheel": "Flywheel",
+  "block.create.furnace_engine": "Furnace Engine",
   
   "fluid.steampowered.steam": "Steam",
   "fluid.steampowered.steam_flowing": "Steam",

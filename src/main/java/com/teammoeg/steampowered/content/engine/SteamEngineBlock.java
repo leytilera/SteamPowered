@@ -25,10 +25,11 @@ import javax.annotation.Nullable;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.AllShapes;
-import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
 import com.teammoeg.steampowered.FluidRegistry;
 import com.teammoeg.steampowered.ItemRegistry;
 import com.teammoeg.steampowered.client.Particles;
+import com.teammoeg.steampowered.create.flywheel.PartialModels;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineBlock;
 import com.teammoeg.steampowered.registrate.SPTiles;
 
 import net.minecraft.world.level.block.Block;
@@ -96,7 +97,7 @@ public class SteamEngineBlock extends EngineBlock {
     @Nullable
     @Override
     public PartialModel getFrameModel() {
-        return AllPartialModels.FURNACE_GENERATOR_FRAME;
+        return PartialModels.FURNACE_GENERATOR_FRAME;
     }
 
     @Override

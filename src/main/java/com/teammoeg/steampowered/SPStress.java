@@ -2,10 +2,10 @@ package com.teammoeg.steampowered;
 
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import com.simibubi.create.content.kinetics.BlockStressValues.IStressValueProvider;
-import com.simibubi.create.content.kinetics.flywheel.FlywheelBlock;
-import com.simibubi.create.content.kinetics.flywheel.engine.EngineBlock;
 import com.simibubi.create.foundation.utility.Couple;
 import com.teammoeg.steampowered.content.alternator.DynamoBlock;
+import com.teammoeg.steampowered.create.flywheel.engine.EngineBlock;
+import com.teammoeg.steampowered.create.flywheel.legacy.FlywheelBlock;
 
 import net.minecraft.world.level.block.Block;
 

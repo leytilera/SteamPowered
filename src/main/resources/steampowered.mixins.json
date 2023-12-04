@@ -5,8 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "steampowered.refmap.json",
   "mixins": [
-    "FlywheelTileEntityAccess",
-    "MixinFlywheel"
+    "MixinAllPartialModels"
   ],
   "client": [
   ],
