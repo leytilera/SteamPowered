@@ -61,6 +61,9 @@ public class SPTabs {
                         b.accept(SPBlocks.STEEL_COGWHEEL);
                         b.accept(SPBlocks.STEEL_LARGE_COGWHEEL);
 
+                        b.accept(SPBlocks.BRASS_FLYWHEEL);
+                        b.accept(SPBlocks.FURNACE_ENGINE);
+
                         b.accept(SPBlocks.DYNAMO);
 
                         b.accept(SPItems.BRONZE_SHEET);

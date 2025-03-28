@@ -20,9 +20,11 @@ package com.teammoeg.steampowered.registrate;
 
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
+import com.teammoeg.steampowered.client.instance.BrassFlywheelInstance;
 import com.teammoeg.steampowered.client.instance.BronzeFlywheelInstance;
 import com.teammoeg.steampowered.client.instance.CastIronFlywheelInstance;
 import com.teammoeg.steampowered.client.instance.SteelFlywheelInstance;
+import com.teammoeg.steampowered.client.render.BrassFlywheelRenderer;
 import com.teammoeg.steampowered.client.render.BronzeFlywheelRenderer;
 import com.teammoeg.steampowered.client.render.CastIronFlywheelRenderer;
 import com.teammoeg.steampowered.client.render.SteelFlywheelRenderer;
@@ -36,8 +38,11 @@ import com.teammoeg.steampowered.content.burner.SteelBurnerBlockEntity;
 import com.teammoeg.steampowered.content.cogwheel.MetalCogwheelBlockEntity;
 import com.teammoeg.steampowered.content.engine.BronzeSteamEngineTileEntity;
 import com.teammoeg.steampowered.content.engine.CastIronSteamEngineTileEntity;
+import com.teammoeg.steampowered.content.engine.FurnaceEngineTileEntity;
 import com.teammoeg.steampowered.content.engine.SteelSteamEngineTileEntity;
 import com.teammoeg.steampowered.content.flywheel.SteamFlywheelTileEntity;
+import com.teammoeg.steampowered.oldcreatestuff.OldEngineInstance;
+import com.teammoeg.steampowered.oldcreatestuff.OldEngineRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 import static com.teammoeg.steampowered.SteamPowered.REGISTRATE;
@@ -93,6 +98,13 @@ public class SPBlockEntities {
             .validBlocks(SPBlocks.STEEL_STEAM_ENGINE)
             .register();
 
+    public static final BlockEntityEntry<FurnaceEngineTileEntity> FURNACE_ENGINE = REGISTRATE
+            .blockEntity("furnace_engine", FurnaceEngineTileEntity::new)
+            .visual(() -> OldEngineInstance::new, false)
+            .validBlocks(SPBlocks.FURNACE_ENGINE)
+            .renderer(() -> OldEngineRenderer::new)
+            .register();
+
     public static final BlockEntityEntry<MetalCogwheelBlockEntity> METAL_COGWHEEL = REGISTRATE
             .blockEntity("metal_cogwheel", MetalCogwheelBlockEntity::new)
             .visual(() -> SingleAxisRotatingVisual::shaft)
@@ -125,6 +137,13 @@ public class SPBlockEntities {
             .visual(() -> SteelFlywheelInstance::new)
             .validBlocks(SPBlocks.STEEL_FLYWHEEL)
             .renderer(() -> SteelFlywheelRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SteamFlywheelTileEntity> BRASS_STEAM_FLYWHEEL = REGISTRATE
+            .blockEntity("brass_steam_flywheel", SteamFlywheelTileEntity::new)
+            .visual(() -> BrassFlywheelInstance::new)
+            .validBlocks(SPBlocks.BRASS_FLYWHEEL)
+            .renderer(() -> BrassFlywheelRenderer::new)
             .register();
 
     public static void register() {

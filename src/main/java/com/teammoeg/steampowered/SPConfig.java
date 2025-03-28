@@ -38,7 +38,9 @@ public class SPConfig {
         public final ForgeConfigSpec.IntValue steelFlywheelSteamConsumptionPerTick;
         public final ForgeConfigSpec.IntValue steelFlywheelSteamStorage;
         public final ForgeConfigSpec.DoubleValue steelFlywheelSuckEfficiency;
-        
+        public final ForgeConfigSpec.IntValue brassFlywheelCapacity;
+        public final ForgeConfigSpec.IntValue brassFlywheelSpeed;
+
         public final ForgeConfigSpec.IntValue HUPerFuelTick;
         public final ForgeConfigSpec.DoubleValue steamPerWater;
         
@@ -120,6 +122,12 @@ public class SPConfig {
                     steelFlywheelSteamConsumptionPerTick = builder.defineInRange("steelFlywheelSteamConsumptionPerTick", 48, 0, 1048576);
                     steelFlywheelSteamStorage = builder.defineInRange("steelFlywheelSteamStorage", 96000, 0, 1048576);
                     steelFlywheelSuckEfficiency =builder.defineInRange("steelFlywheelSuckEfficiency",0.7,0,1);
+                }
+                builder.pop();
+                builder.push("brass_flywheel");
+                {
+                    brassFlywheelCapacity = builder.defineInRange("brassFlywheelCapacity", 1024, 0, 8192);
+                    brassFlywheelSpeed = builder.defineInRange("brassFlywheelSpeed", 16, 0, 8192);
                 }
                 builder.pop();
             }

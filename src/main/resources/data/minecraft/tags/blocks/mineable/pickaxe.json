@@ -10,6 +10,7 @@
     "steampowered:bronze_steam_engine",
     "steampowered:cast_iron_steam_engine",
     "steampowered:steel_steam_engine",
+    "steampowered:furnace_engine",
     "steampowered:steel_cogwheel",
     "steampowered:steel_large_cogwheel",
     "steampowered:cast_iron_cogwheel",
@@ -19,6 +20,7 @@
     "steampowered:alternator",
     "steampowered:bronze_flywheel",
     "steampowered:cast_iron_flywheel",
-    "steampowered:steel_flywheel"
+    "steampowered:steel_flywheel",
+    "steampowered:brass_flywheel"
   ]
 }

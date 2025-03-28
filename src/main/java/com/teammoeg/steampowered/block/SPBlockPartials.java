@@ -40,7 +40,15 @@ public class SPBlockPartials {
     public static final PartialModel STEEL_FLYWHEEL_UPPER_SLIDING = get("steel_flywheel/upper_sliding_connector");
     public static final PartialModel STEEL_FLYWHEEL_LOWER_SLIDING = get("steel_flywheel/lower_sliding_connector");
 
+    public static final PartialModel BRASS_FLYWHEEL = get("brass_flywheel/wheel");
+    public static final PartialModel BRASS_FLYWHEEL_UPPER_ROTATING = get("brass_flywheel/upper_rotating_connector");
+    public static final PartialModel BRASS_FLYWHEEL_LOWER_ROTATING = get("brass_flywheel/lower_rotating_connector");
+    public static final PartialModel BRASS_FLYWHEEL_UPPER_SLIDING = get("brass_flywheel/upper_sliding_connector");
+    public static final PartialModel BRASS_FLYWHEEL_LOWER_SLIDING = get("brass_flywheel/lower_sliding_connector");
+
     public static final PartialModel DYNAMO_SHAFT = get("dynamo/shaft");
+
+    public static final PartialModel FURNACE_GENERATOR_FRAME = get("furnace_engine/frame");
 
     private static PartialModel get(String path) {
         return PartialModel.of(new ResourceLocation("steampowered", "block/" + path));

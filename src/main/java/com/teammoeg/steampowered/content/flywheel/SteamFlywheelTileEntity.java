@@ -1,6 +1,6 @@
 package com.teammoeg.steampowered.content.flywheel;
 
-import com.teammoeg.steampowered.content.engine.SteamEngineTileEntity;
+import com.teammoeg.steampowered.oldcreatestuff.OldEngineBlockEntity;
 import com.teammoeg.steampowered.oldcreatestuff.OldFlywheelBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -25,7 +25,7 @@ public class SteamFlywheelTileEntity extends OldFlywheelBlockEntity {
 
         var enginePos = this.worldPosition.relative(facing, 2);
         var engine = this.level.getBlockEntity(enginePos);
-        if (engine instanceof SteamEngineTileEntity)
+        if (engine instanceof OldEngineBlockEntity)
             return;
 
         clearState();

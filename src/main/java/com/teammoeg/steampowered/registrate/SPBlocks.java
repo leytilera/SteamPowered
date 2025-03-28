@@ -38,7 +38,9 @@ import com.teammoeg.steampowered.content.burner.SteelBurnerBlock;
 import com.teammoeg.steampowered.content.cogwheel.MetalCogwheelBlock;
 import com.teammoeg.steampowered.content.engine.BronzeSteamEngineBlock;
 import com.teammoeg.steampowered.content.engine.CastIronSteamEngineBlock;
+import com.teammoeg.steampowered.content.engine.FurnaceEngineBlock;
 import com.teammoeg.steampowered.content.engine.SteelSteamEngineBlock;
+import com.teammoeg.steampowered.content.flywheel.BrassSteamFlywheelBlock;
 import com.teammoeg.steampowered.content.flywheel.BronzeSteamFlywheelBlock;
 import com.teammoeg.steampowered.content.flywheel.CastIronSteamFlywheelBlock;
 import com.teammoeg.steampowered.content.flywheel.SteelSteamFlywheelBlock;
@@ -119,6 +121,15 @@ public class SPBlocks {
             .register();
 
     public static final BlockEntry<SteelSteamEngineBlock> STEEL_STEAM_ENGINE = REGISTRATE.block("steel_steam_engine", SteelSteamEngineBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .tag(AllTags.AllBlockTags.BRITTLE.tag)
+            .blockstate(BlockStateGen.horizontalBlockProvider(true))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<FurnaceEngineBlock> FURNACE_ENGINE = REGISTRATE.block("furnace_engine", FurnaceEngineBlock::new)
             .initialProperties(SPBlocks::hardMetal)
             .transform(pickaxeOnly())
             .item()
@@ -213,6 +224,15 @@ public class SPBlocks {
 
     public static final BlockEntry<SteelSteamFlywheelBlock> STEEL_FLYWHEEL = REGISTRATE.block("steel_flywheel", SteelSteamFlywheelBlock::new)
             .initialProperties(SPBlocks::hardMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(axeOrPickaxe())
+            .blockstate(new OldFlywheelGenerator()::generate)
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<BrassSteamFlywheelBlock> BRASS_FLYWHEEL = REGISTRATE.block("brass_flywheel", BrassSteamFlywheelBlock::new)
+            .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(axeOrPickaxe())
             .blockstate(new OldFlywheelGenerator()::generate)
