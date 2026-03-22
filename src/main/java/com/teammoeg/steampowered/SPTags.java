@@ -32,7 +32,7 @@ public class SPTags {
     public static final TagKey<Fluid> STEAM = forgeTag("steam");
 
     private static TagKey<Fluid> forgeTag(String name) {
-        return FluidTags.create(new ResourceLocation("forge", name));
+        return FluidTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
     }
 
 }

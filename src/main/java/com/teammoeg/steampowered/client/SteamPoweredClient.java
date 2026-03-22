@@ -22,7 +22,6 @@ import com.teammoeg.steampowered.block.SPBlockPartials;
 import com.teammoeg.steampowered.network.ponder.SPPonderPlugin;
 import com.teammoeg.steampowered.registrate.SPBlocks;
 
-import com.teammoeg.steampowered.registrate.SPFluids;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -43,7 +42,7 @@ public class SteamPoweredClient {
         PonderIndex.addPlugin(new SPPonderPlugin());
     }
     public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-        Minecraft.getInstance().particleEngine.register(Particles.STEAM.get(), SteamParticle.Factory::new);
+        event.registerSpriteSet(Particles.STEAM.get(), SteamParticle.Factory::new);
     }
     public static void setupRenderType(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {

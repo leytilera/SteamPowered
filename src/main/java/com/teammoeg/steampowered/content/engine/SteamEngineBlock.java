@@ -108,6 +108,6 @@ public class SteamEngineBlock extends OldEngineBlock {
             }
 			return InteractionResult.PASS;
         }
-		return super.use(state, world, pos, player, hand, blockRayTraceResult);
+        return state.use(world, player, hand, blockRayTraceResult);
     }
 }

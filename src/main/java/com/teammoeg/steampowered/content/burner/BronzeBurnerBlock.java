@@ -23,9 +23,6 @@ import com.teammoeg.steampowered.SPConfig;
 import com.teammoeg.steampowered.registrate.SPBlockEntities;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class BronzeBurnerBlock extends BurnerBlock implements IBE<BronzeBurnerBlockEntity> {
     public BronzeBurnerBlock(Properties properties) {
         super(properties);

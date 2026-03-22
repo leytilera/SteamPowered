@@ -1,6 +1,5 @@
 package com.teammoeg.steampowered.content.alternator;
 
-import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.teammoeg.steampowered.block.SPBlockPartials;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;

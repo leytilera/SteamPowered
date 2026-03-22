@@ -29,7 +29,6 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -69,7 +68,7 @@ public abstract class BoilerBlock extends Block {
 			BoilerTileEntity boiler = (BoilerTileEntity) te;
 			return boiler.output.getFluidAmount() * 15 / boiler.output.getCapacity();
 		}
-		return super.getAnalogOutputSignal(b, w, p);
+		return b.getAnalogOutputSignal(w, p);
 	}
 
 

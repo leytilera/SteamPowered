@@ -6,7 +6,6 @@ import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityVisual;
 import com.simibubi.create.content.kinetics.base.RotatingInstance;
 import com.simibubi.create.foundation.render.AllInstanceTypes;
-import com.teammoeg.steampowered.block.SPBlockPartials;
 import com.teammoeg.steampowered.oldcreatestuff.OldFlywheelBlock;
 import com.teammoeg.steampowered.oldcreatestuff.OldFlywheelBlockEntity;
 import dev.engine_room.flywheel.api.instance.Instance;

@@ -19,7 +19,6 @@
 package com.teammoeg.steampowered.content.alternator;
 
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
-import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.utility.CreateLang;
@@ -56,7 +55,7 @@ import java.util.List;
  * @author MRH0
  * @author yuesha-yc
  */
-public class DynamoBlock extends DirectionalKineticBlock implements IBE<DynamoBlockEntity>, IRotate {
+public class DynamoBlock extends DirectionalKineticBlock implements IBE<DynamoBlockEntity> {
 
     public static final BooleanProperty REDSTONE_LOCKED = BooleanProperty.create("redstone_locked");
     public static final VoxelShaper DYNAMO_SHAPE = SPShapes

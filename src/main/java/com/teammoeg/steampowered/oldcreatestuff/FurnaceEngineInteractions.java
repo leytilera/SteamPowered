@@ -1,6 +1,5 @@
 package com.teammoeg.steampowered.oldcreatestuff;
 
-import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;

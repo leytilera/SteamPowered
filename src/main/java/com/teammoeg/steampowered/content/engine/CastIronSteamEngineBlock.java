@@ -35,8 +35,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.List;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class CastIronSteamEngineBlock extends SteamEngineBlock implements IBE<CastIronSteamEngineTileEntity> {
     public CastIronSteamEngineBlock(Properties builder) {
         super(builder);

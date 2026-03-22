@@ -26,10 +26,13 @@ import com.tterrag.registrate.util.entry.FluidEntry;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.registries.ForgeRegistries;
+
 import org.joml.Vector3f;
 
 import java.util.function.Supplier;
@@ -50,7 +53,7 @@ public class SPFluids {
             .tag(SPTags.STEAM)
             .source(ForgeFlowingFluid.Source::new)
             .bucket()
-            .tag(AllTags.forgeItemTag("buckets/steam"))
+            .tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), AllTags.NameSpace.FORGE.id("buckets/steam")))
             .build()
             .register();
 

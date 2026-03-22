@@ -44,7 +44,7 @@ public class SteamPowered {
     public static final String MODID = "steampowered";
 
     public static ResourceLocation rl(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);

@@ -51,7 +51,7 @@ public class SPBlockPartials {
     public static final PartialModel FURNACE_GENERATOR_FRAME = get("furnace_engine/frame");
 
     private static PartialModel get(String path) {
-        return PartialModel.of(new ResourceLocation("steampowered", "block/" + path));
+        return PartialModel.of(ResourceLocation.fromNamespaceAndPath("steampowered", "block/" + path));
     }
 
     public static void clientInit() {

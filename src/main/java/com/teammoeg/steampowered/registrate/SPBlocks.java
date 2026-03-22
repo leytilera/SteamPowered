@@ -20,13 +20,11 @@ package com.teammoeg.steampowered.registrate;
 
 import com.simibubi.create.AllTags;
 import com.simibubi.create.api.boiler.BoilerHeater;
-import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
 import com.simibubi.create.content.kinetics.simpleRelays.CogwheelBlockItem;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.infrastructure.config.CStress;
 import com.teammoeg.steampowered.content.alternator.DynamoBlock;
 import com.teammoeg.steampowered.content.boiler.BronzeBoilerBlock;
 import com.teammoeg.steampowered.content.boiler.CastIronBoilerBlock;
