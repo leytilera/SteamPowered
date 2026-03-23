@@ -1,77 +1,30 @@
-<p align="center"><img src="https://media.forgecdn.net/attachments/403/496/steam-powered-logo.png" alt="logo" width="200"/></p>
+# Create: Steam Powered
+This mod is a fork of the original [Create: Steam Powered by TeamMoeg](https://github.com/TeamMoegMC/SteamPowered)
 
-# <p align="center">Create: Steam Powered</p>
+## About the original mod
+### What we added: 
 
-### <p align="center">Expanding Create mod to the Steam Age</p>
-
-<br>
-<p align="center"><img src="https://media.forgecdn.net/attachments/403/636/2021-10-25_15.png" alt="logo" width="400"/></p>
-
-
-#### Foreword:
-
-Taking inspiration from the furnace engine in Create, we decide that we could make something more realistic and cooler. The main philosophy of this mod is to provide more "realistic" power generation methods and machines & contraptions that will work to achieve this goal. This mod is also playable even in Creative Mode because it includes many decorative blocks such as metal cogwheels.
-
-This mod requires Create and Flywheel as required dependencies. Immersive Engineering is an optional dependency that adds in steel for the mod.
-
-#### What we added:
-
-- Steam Engines of three types: Bronze, Cast Iron, and Steel
-- Flywheels of three types: Bronze, Cast Iron, and Steel
-- Cogwheels and Large Cogwheels of three types: Bronze, Cast Iron, and Steel
-- Steam: Designed with compatibility in mind! Other mods' steam fluids registered under forge:steam tag also works!
-- Burning Chambers of three types: Bronze, Cast Iron, and Steel
-- Steam Boilers of three types: Bronze, Cast Iron, and Steel
+Steam Engines of three types: Bronze, Cast Iron, and Steel
+Flywheels of three types: Bronze, Cast Iron, and Steel
+Cogwheels and Large Cogwheels of three types: Bronze, Cast Iron, and Steel
+Steam: Designed with compatibility in mind! Other mods' steam fluids registered under forge:steam tag also works!
+Burning Chambers of three types: Bronze, Cast Iron, and Steel
+Steam Boilers of three types: Bronze, Cast Iron, and Steel
 
 Fully configurable steam engine outputs, steam consumption, cogwheel stress impact, dynamo output and intake
 
-#### Upcoming Features:
+### Optional Feature:
 
-Steam Encased Fan
-
-Huge Cogwheels (say, 3x3 or 5x5 size)
-
-Multiblock boilers & dynamos
-
-Steam Ariship
-
-Steam Jetpack
-
-#### Optional Feature:
-
-Dynamo that produces FE from RPM. Redstone signal can be provided to lock it from working.
-
-<p align="center"><img src="https://media.forgecdn.net/attachments/403/847/2021-10-26_01.png" alt="logo" width="400"/></p>
+Dynamo that produces FE from RPM. Redstone signal can be provided to lock it from working. 
 
 (Credits and appreciation to MRH0's energy conversion code)
 
-#### Open Source:
+## About the fork
 
-This is a free and open source mod licensed under GNU GPL 3.0 License.
-You are welcomed to contribute to this project. Visit Discord or Github Repo.
-
-#### Discord:
-
-Join the discord to get exclusive update previews and new projects notifications
-
-https://discord.gg/BWn6E94
-
-#### Support the Devs:
-
-If you love what we create, support us to let us create more
-
-https://www.patreon.com/TeamMoegProjects
-
-#### Contributors
-
-The Team:
-- Developers: YueSha, khjxiaogu
-- Artists: goumo_g
-
-Contributors:
-- Create Team: For the Create mod & Furnace Engine base code.
-- MRH0: Dynamo base code.
-- jetpacker06: Porting to Create 0.5.1c
-- CKenJa: Japanese Translation
-- albertosaurio65: Spanish Translation
-- TheDarkBread: Russian Translation
+Changes to the original mod:
+- Added back the Furnace Engine from old Create versions
+- Ported to Create 0.5 (1.18.2 version)
+- Ported to Create 6 (1.20.1 version)
+- Made Burners from this mod usable for Create boilers (1.20.1 version)
+- Made Blaze Burners usable for Boiler from this mod (1.20.1 version)
+- Some bug fixes
