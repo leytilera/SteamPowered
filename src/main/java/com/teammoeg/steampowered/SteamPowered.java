@@ -74,7 +74,7 @@ public class SteamPowered {
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SPBlockEntities.BRONZE_BURNER.get(), BurnerBlockEntity.ITEM_CAP);
         event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SPBlockEntities.CAST_IRON_BURNER.get(), BurnerBlockEntity.ITEM_CAP);
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SPBlockEntities.BRONZE_BURNER.get(), BurnerBlockEntity.ITEM_CAP);
+        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, SPBlockEntities.STEEL_BURNER.get(), BurnerBlockEntity.ITEM_CAP);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, SPBlockEntities.BRONZE_BOILER.get(), BoilerTileEntity.FLUID_CAP);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, SPBlockEntities.CAST_IRON_BOILER.get(), BoilerTileEntity.FLUID_CAP);
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, SPBlockEntities.STEEL_BOILER.get(), BoilerTileEntity.FLUID_CAP);
