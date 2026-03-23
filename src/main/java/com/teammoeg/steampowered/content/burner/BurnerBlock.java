@@ -16,15 +16,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,9 +34,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
 
 import java.util.List;
 
@@ -93,7 +93,7 @@ public abstract class BurnerBlock extends Block {
     }
 
     @Override
-	public void appendHoverText(ItemStack i, BlockGetter w, List<Component> t,
+	public void appendHoverText(ItemStack i, Item.TooltipContext w, List<Component> t,
 			TooltipFlag f) {
     	
     	if(Screen.hasShiftDown()) {
@@ -115,23 +115,30 @@ public abstract class BurnerBlock extends Block {
     	}
 		super.appendHoverText(i,w,t,f);
 	}
+    
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+            Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (player.getItemInHand(hand).getBurnTime(RecipeType.BLASTING) != 0 && player.getItemInHand(hand).getCraftingRemainingItem().isEmpty() && !player.getItemInHand(hand).is(Items.LAVA_BUCKET)) {
+            IItemHandler cap = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
+            player.setItemInHand(hand, cap.insertItem(0, player.getItemInHand(hand), false));
+            return ItemInteractionResult.SUCCESS;
+        }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
 
-	@Override
-    public InteractionResult use(BlockState bs, Level w, BlockPos bp, Player pe, InteractionHand h, BlockHitResult br) {
-        if (pe.getItemInHand(h).isEmpty()) {
-            IItemHandler cap = w.getBlockEntity(bp).getCapability(ForgeCapabilities.ITEM_HANDLER).resolve().get();
-            ItemStack is = cap.getStackInSlot(0);
-            if (!is.isEmpty()) {
-                pe.setItemInHand(h, cap.extractItem(0, is.getCount(), false));
-                return InteractionResult.SUCCESS;
-            }
-        } else if (ForgeHooks.getBurnTime(pe.getItemInHand(h), RecipeType.BLASTING) != 0 && pe.getItemInHand(h).getCraftingRemainingItem().isEmpty() && !pe.getItemInHand(h).is(Items.LAVA_BUCKET)) {
-            IItemHandler cap = w.getBlockEntity(bp).getCapability(ForgeCapabilities.ITEM_HANDLER).resolve().get();
-            pe.setItemInHand(h, cap.insertItem(0, pe.getItemInHand(h), false));
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
+            BlockHitResult hitResult) {
+        IItemHandler cap = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, null);
+        ItemStack is = cap.getStackInSlot(0);
+        if (!is.isEmpty()) {
+            player.setItemInHand(InteractionHand.MAIN_HAND, cap.extractItem(0, is.getCount(), false));
             return InteractionResult.SUCCESS;
         }
-        return InteractionResult.PASS;
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
+
     @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean flag) {
         if (!world.isClientSide) {

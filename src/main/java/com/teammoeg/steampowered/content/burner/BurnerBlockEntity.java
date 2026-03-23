@@ -11,32 +11,33 @@ import com.teammoeg.steampowered.oldcreatestuff.IGoggleInformation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public abstract class BurnerBlockEntity extends SmartBlockEntity implements IGoggleInformation {
     private ItemStackHandler inv = new ItemStackHandler() {
 
         @Override
         public boolean isItemValid(int slot,ItemStack stack) {
-            return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) != 0 && stack.getCraftingRemainingItem().isEmpty();
+            return stack.getBurnTime(RecipeType.SMELTING) != 0 && stack.getCraftingRemainingItem().isEmpty();
         }
 
     };
     int HURemain;
-    private LazyOptional<IItemHandler> holder = LazyOptional.of(() -> inv);
+
+    public static final ICapabilityProvider<BurnerBlockEntity, Direction, IItemHandler> ITEM_CAP = (BurnerBlockEntity te, Direction side) -> {
+        return te.inv;
+    };
 
     public BurnerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -46,17 +47,17 @@ public abstract class BurnerBlockEntity extends SmartBlockEntity implements IGog
     public void addBehaviours(List<BlockEntityBehaviour> behaviours) {}
 
     @Override
-    public void read(CompoundTag nbt, boolean clientPacket) {
-        inv.deserializeNBT(nbt.getCompound("inv"));
+    public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        inv.deserializeNBT(registries, nbt.getCompound("inv"));
         HURemain = nbt.getInt("hu");
-        super.read(nbt, clientPacket);
+        super.read(nbt, registries, clientPacket);
     }
 
     @Override
-    public void write(CompoundTag nbt, boolean clientPacket) {
-        nbt.put("inv", inv.serializeNBT());
+    public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        nbt.put("inv", inv.serializeNBT(registries));
         nbt.putInt("hu", HURemain);
-        super.write(nbt, clientPacket);
+        super.write(nbt, registries, clientPacket);
     }
 
 //    @Override
@@ -77,22 +78,6 @@ public abstract class BurnerBlockEntity extends SmartBlockEntity implements IGog
 //        writeCustomNBT(nbt);
 //        return nbt;
 //    }
-
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (!this.holder.isPresent()) {
-            this.refreshCapability();
-        }
-        return cap == ForgeCapabilities.ITEM_HANDLER ? holder.cast() : super.getCapability(cap, side);
-    }
-
-    private void refreshCapability() {
-        LazyOptional<IItemHandler> oldCap = this.holder;
-        this.holder = LazyOptional.of(() -> {
-            return this.inv;
-        });
-        oldCap.invalidate();
-    }
 
     public void tick() {
         if (level != null && !level.isClientSide) {
@@ -121,7 +106,8 @@ public abstract class BurnerBlockEntity extends SmartBlockEntity implements IGog
 
     private boolean consumeFuel() {
     	if(this.getBlockState().getValue(BurnerBlock.REDSTONE_LOCKED))return false;
-        int time = ForgeHooks.getBurnTime(inv.getStackInSlot(0), RecipeType.SMELTING);
+        if (inv.getStackInSlot(0) == null) return false; 
+        int time = inv.getStackInSlot(0).getBurnTime(RecipeType.SMELTING);
         if (time <= 0) return false;
         inv.getStackInSlot(0).shrink(1);
         HURemain += time * SPConfig.COMMON.HUPerFuelTick.get()*getEfficiency();//2.4HU/t

@@ -12,6 +12,7 @@ import com.teammoeg.steampowered.registrate.SPFluids;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -21,15 +22,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 public abstract class SteamEngineTileEntity extends OldEngineBlockEntity implements IGoggleInformation {
@@ -79,14 +76,16 @@ public abstract class SteamEngineTileEntity extends OldEngineBlockEntity impleme
 
 	};
 
-	private LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> handler);
 	private int heatup = 0;
 
 	protected SteamFlywheelTileEntity poweredWheel;
 
+	public static final ICapabilityProvider<SteamEngineTileEntity, Direction, IFluidHandler> FLUID_CAP = (SteamEngineTileEntity te, Direction side) -> {
+		return te.handler;
+	};
+
 	public SteamEngineTileEntity(BlockEntityType<? extends SteamEngineTileEntity> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
-		this.refreshCapability();
 		this.tank = new FluidTank(this.getSteamStorage(), fluidStack -> {
 			if (SPTags.STEAM != null)
 				return fluidStack.getFluid().is(SPTags.STEAM);
@@ -201,41 +200,22 @@ public abstract class SteamEngineTileEntity extends OldEngineBlockEntity impleme
 					.append(Component.translatable("tooltip.steampowered.steam_engine.running")
 							.withStyle(ChatFormatting.GREEN)));
 		}
-		return this.containedFluidTooltip(tooltip, isPlayerSneaking,
-				getCapability(ForgeCapabilities.FLUID_HANDLER));
+		return this.containedFluidTooltip(tooltip, isPlayerSneaking, handler);
 	}
 
 	@Override
-	protected void read(CompoundTag compound, boolean clientPacket) {
-		super.read(compound, clientPacket);
-		tank.readFromNBT(compound.getCompound("TankContent"));
+	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+		super.read(compound, registries, clientPacket);
+		tank.readFromNBT(registries, compound.getCompound("TankContent"));
 		heatup = compound.getInt("heatup");
 	}
 
 	@Override
-	public void write(CompoundTag compound, boolean clientPacket) {
-		super.write(compound, clientPacket);
-		compound.put("TankContent", tank.writeToNBT(new CompoundTag()));
+	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+		super.write(compound, registries, clientPacket);
+		compound.put("TankContent", tank.writeToNBT(registries, new CompoundTag()));
 		compound.putInt("heatup", heatup);
 		
-	}
-
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-		if (!this.holder.isPresent()) {
-			this.refreshCapability();
-		}
-		return capability == ForgeCapabilities.FLUID_HANDLER ? holder.cast()
-				: super.getCapability(capability, facing);
-	}
-
-	private void refreshCapability() {
-		LazyOptional<IFluidHandler> oldCap = this.holder;
-		this.holder = LazyOptional.of(() -> {
-			return this.handler;
-		});
-		oldCap.invalidate();
 	}
 
 	public void attachWheel() {

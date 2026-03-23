@@ -1,52 +1,52 @@
 package com.teammoeg.steampowered;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class SPConfig {
     public static class Common {
 
-        public final ForgeConfigSpec.IntValue bronzeFlywheelCapacity;
-        public final ForgeConfigSpec.IntValue bronzeFlywheelSpeed;
-        public final ForgeConfigSpec.IntValue bronzeFlywheelSteamConsumptionPerTick;
-        public final ForgeConfigSpec.IntValue bronzeFlywheelSteamStorage;
-        public final ForgeConfigSpec.DoubleValue bronzeFlywheelSuckEfficiency;
-        public final ForgeConfigSpec.IntValue castIronFlywheelCapacity;
-        public final ForgeConfigSpec.IntValue castIronFlywheelSpeed;
-        public final ForgeConfigSpec.IntValue castIronFlywheelSteamConsumptionPerTick;
-        public final ForgeConfigSpec.IntValue castIronFlywheelSteamStorage;
-        public final ForgeConfigSpec.DoubleValue castIronFlywheelSuckEfficiency;
-        public final ForgeConfigSpec.IntValue steelFlywheelCapacity;
-        public final ForgeConfigSpec.IntValue steelFlywheelSpeed;
-        public final ForgeConfigSpec.IntValue steelFlywheelSteamConsumptionPerTick;
-        public final ForgeConfigSpec.IntValue steelFlywheelSteamStorage;
-        public final ForgeConfigSpec.DoubleValue steelFlywheelSuckEfficiency;
-        public final ForgeConfigSpec.IntValue brassFlywheelCapacity;
-        public final ForgeConfigSpec.IntValue brassFlywheelSpeed;
+        public final ModConfigSpec.IntValue bronzeFlywheelCapacity;
+        public final ModConfigSpec.IntValue bronzeFlywheelSpeed;
+        public final ModConfigSpec.IntValue bronzeFlywheelSteamConsumptionPerTick;
+        public final ModConfigSpec.IntValue bronzeFlywheelSteamStorage;
+        public final ModConfigSpec.DoubleValue bronzeFlywheelSuckEfficiency;
+        public final ModConfigSpec.IntValue castIronFlywheelCapacity;
+        public final ModConfigSpec.IntValue castIronFlywheelSpeed;
+        public final ModConfigSpec.IntValue castIronFlywheelSteamConsumptionPerTick;
+        public final ModConfigSpec.IntValue castIronFlywheelSteamStorage;
+        public final ModConfigSpec.DoubleValue castIronFlywheelSuckEfficiency;
+        public final ModConfigSpec.IntValue steelFlywheelCapacity;
+        public final ModConfigSpec.IntValue steelFlywheelSpeed;
+        public final ModConfigSpec.IntValue steelFlywheelSteamConsumptionPerTick;
+        public final ModConfigSpec.IntValue steelFlywheelSteamStorage;
+        public final ModConfigSpec.DoubleValue steelFlywheelSuckEfficiency;
+        public final ModConfigSpec.IntValue brassFlywheelCapacity;
+        public final ModConfigSpec.IntValue brassFlywheelSpeed;
 
-        public final ForgeConfigSpec.IntValue HUPerFuelTick;
-        public final ForgeConfigSpec.DoubleValue steamPerWater;
+        public final ModConfigSpec.IntValue HUPerFuelTick;
+        public final ModConfigSpec.DoubleValue steamPerWater;
         
-        public final ForgeConfigSpec.IntValue bronzeBoilerHU;
-        public final ForgeConfigSpec.IntValue castIronBoilerHU;
-        public final ForgeConfigSpec.IntValue steelBoilerHU;
+        public final ModConfigSpec.IntValue bronzeBoilerHU;
+        public final ModConfigSpec.IntValue castIronBoilerHU;
+        public final ModConfigSpec.IntValue steelBoilerHU;
         
-        public final ForgeConfigSpec.IntValue bronzeBurnerHU;
-        public final ForgeConfigSpec.IntValue castIronBurnerHU;
-        public final ForgeConfigSpec.IntValue steelBurnerHU;
-        public final ForgeConfigSpec.DoubleValue bronzeBurnerEfficiency;
-        public final ForgeConfigSpec.DoubleValue castIronBurnerEfficiency;
-        public final ForgeConfigSpec.DoubleValue steelBurnerEfficiency;
+        public final ModConfigSpec.IntValue bronzeBurnerHU;
+        public final ModConfigSpec.IntValue castIronBurnerHU;
+        public final ModConfigSpec.IntValue steelBurnerHU;
+        public final ModConfigSpec.DoubleValue bronzeBurnerEfficiency;
+        public final ModConfigSpec.DoubleValue castIronBurnerEfficiency;
+        public final ModConfigSpec.DoubleValue steelBurnerEfficiency;
 
-        public final ForgeConfigSpec.IntValue dynamoFeMaxOut;
-        public final ForgeConfigSpec.IntValue dynamoFeCapacity;
-        public final ForgeConfigSpec.IntValue dynamoImpact;
-        public final ForgeConfigSpec.DoubleValue dynamoEfficiency;
+        public final ModConfigSpec.IntValue dynamoFeMaxOut;
+        public final ModConfigSpec.IntValue dynamoFeCapacity;
+        public final ModConfigSpec.IntValue dynamoImpact;
+        public final ModConfigSpec.DoubleValue dynamoEfficiency;
 
-        public final ForgeConfigSpec.DoubleValue bronzeCogwheelImpact;
-        public final ForgeConfigSpec.DoubleValue castIronCogwheelImpact;
-        public final ForgeConfigSpec.DoubleValue steelCogwheelImpact;
+        public final ModConfigSpec.DoubleValue bronzeCogwheelImpact;
+        public final ModConfigSpec.DoubleValue castIronCogwheelImpact;
+        public final ModConfigSpec.DoubleValue steelCogwheelImpact;
 
-        Common(ForgeConfigSpec.Builder builder) {
+        Common(ModConfigSpec.Builder builder) {
             builder.push("steam");
             {
                 HUPerFuelTick=builder.comment("HU generation for each fuel burning tick. 10HU=1mb of steam. THIS AFFECT ALL BURNERS AND BOILERS!")
@@ -136,9 +136,9 @@ public class SPConfig {
 
     public static class Server {
 
-        //public final ForgeConfigSpec.BooleanValue disableDynamo;
+        //public final ModConfigSpec.BooleanValue disableDynamo;
 
-        Server(ForgeConfigSpec.Builder builder) {
+        Server(ModConfigSpec.Builder builder) {
             //Unproper comment make our main developer mad XXD
             /*builder.push("dynamo");
             {
@@ -162,14 +162,14 @@ public class SPConfig {
         }
     }
 
-    public static final ForgeConfigSpec COMMON_CONFIG;
-    public static final ForgeConfigSpec SERVER_CONFIG;
+    public static final ModConfigSpec COMMON_CONFIG;
+    public static final ModConfigSpec SERVER_CONFIG;
     public static final Common COMMON;
     public static final Server SERVER;
 
     static {
-        ForgeConfigSpec.Builder COMMON_BUILDER = new ForgeConfigSpec.Builder();
-        ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
+        ModConfigSpec.Builder SERVER_BUILDER = new ModConfigSpec.Builder();
         COMMON = new Common(COMMON_BUILDER);
         SERVER = new Server(SERVER_BUILDER);
         SERVER_CONFIG = SERVER_BUILDER.build();

@@ -11,6 +11,7 @@ import com.teammoeg.steampowered.content.burner.IHeatReceiver;
 import com.teammoeg.steampowered.registrate.SPFluids;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -18,13 +19,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 import java.util.List;
 
@@ -93,28 +92,31 @@ public abstract class BoilerTileEntity extends SmartBlockEntity implements IHeat
     };
     int heatreceived;
     int lastheat;
-    private LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> ft);
+
+    public static final ICapabilityProvider<BoilerTileEntity, Direction, IFluidHandler> FLUID_CAP = (BoilerTileEntity te, Direction side) -> {
+        return te.ft;
+    };
 
     public BoilerTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
     @Override
-    public void write(CompoundTag nbt, boolean clientPacket) {
-        nbt.put("in", input.writeToNBT(new CompoundTag()));
-        nbt.put("out", output.writeToNBT(new CompoundTag()));
+    public void write(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        nbt.put("in", input.writeToNBT(registries, new CompoundTag()));
+        nbt.put("out", output.writeToNBT(registries, new CompoundTag()));
         nbt.putInt("hu", heatreceived);
         nbt.putInt("lasthu", lastheat);
-        super.write(nbt, clientPacket);
+        super.write(nbt, registries, clientPacket);
     }
 
     @Override
-    public void read(CompoundTag nbt, boolean clientPacket) {
-        input.readFromNBT(nbt.getCompound("in"));
-        output.readFromNBT(nbt.getCompound("out"));
+    public void read(CompoundTag nbt, HolderLookup.Provider registries, boolean clientPacket) {
+        input.readFromNBT(registries, nbt.getCompound("in"));
+        output.readFromNBT(registries, nbt.getCompound("out"));
         heatreceived = nbt.getInt("hu");
         lastheat=nbt.getInt("lasthu");
-        super.read(nbt, clientPacket);
+        super.read(nbt, registries, clientPacket);
     }
 
 //    @Override
@@ -204,27 +206,12 @@ public abstract class BoilerTileEntity extends SmartBlockEntity implements IHeat
         }
     }
 
+    @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        this.containedFluidTooltip(tooltip, isPlayerSneaking, LazyOptional.of(() -> input));
-        this.containedFluidTooltip(tooltip, isPlayerSneaking, LazyOptional.of(() -> output));
+        this.containedFluidTooltip(tooltip, isPlayerSneaking, input);
+        this.containedFluidTooltip(tooltip, isPlayerSneaking, output);
         return true;
     }
 
     protected abstract int getHUPerTick();
-
-    @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (!this.holder.isPresent()) {
-            this.refreshCapability();
-        }
-        return cap == ForgeCapabilities.FLUID_HANDLER ? holder.cast() : super.getCapability(cap, side);
-    }
-
-    private void refreshCapability() {
-        LazyOptional<IFluidHandler> oldCap = this.holder;
-        this.holder = LazyOptional.of(() -> {
-            return this.ft;
-        });
-        oldCap.invalidate();
-    }
 }

@@ -1,9 +1,0 @@
-{
-  "values": [
-    "#forge:plates/brass",
-    {
-      "id":"#forge:plates/bronze",
-      "required":false
-    }
-  ]
-}

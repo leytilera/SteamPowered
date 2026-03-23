@@ -31,9 +31,6 @@ import static com.teammoeg.steampowered.SteamPowered.REGISTRATE;
 
 
 public class SPBlockEntities {
-    static {
-        REGISTRATE.setCreativeTab(SPTabs.SP_BASE_TAB);
-    }
 
     public static final BlockEntityEntry<BronzeBurnerBlockEntity> BRONZE_BURNER = REGISTRATE
             .blockEntity("bronze_burner", BronzeBurnerBlockEntity::new)

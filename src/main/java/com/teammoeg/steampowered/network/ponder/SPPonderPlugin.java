@@ -21,7 +21,7 @@ public class SPPonderPlugin implements PonderPlugin {
 
     @Override
     public void registerScenes(PonderSceneRegistrationHelper<ResourceLocation> helper) {
-        PonderSceneRegistrationHelper<ItemProviderEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
+        PonderSceneRegistrationHelper<ItemProviderEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
         HELPER.forComponents(SPBlocks.BRONZE_STEAM_ENGINE, SPBlocks.CAST_IRON_STEAM_ENGINE, SPBlocks.STEEL_STEAM_ENGINE)
                 .addStoryBoard("steam_engine", SPScenes::steamEngine, AllCreatePonderTags.KINETIC_SOURCES, STEAM);

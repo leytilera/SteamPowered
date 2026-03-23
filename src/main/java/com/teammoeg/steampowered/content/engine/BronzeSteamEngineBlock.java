@@ -11,11 +11,10 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.ChatFormatting;
-
-import net.minecraft.world.level.BlockGetter;
 
 public class BronzeSteamEngineBlock extends SteamEngineBlock implements IBE<BronzeSteamEngineTileEntity> {
     public BronzeSteamEngineBlock(Properties builder) {
@@ -33,7 +32,7 @@ public class BronzeSteamEngineBlock extends SteamEngineBlock implements IBE<Bron
     }
 
     @Override
-	public void appendHoverText(ItemStack i, BlockGetter w, List<Component> t,
+	public void appendHoverText(ItemStack i, Item.TooltipContext w, List<Component> t,
 			TooltipFlag f) {
     	if(Screen.hasShiftDown()) {
     		t.add(Component.translatable("tooltip.steampowered.engine.brief").withStyle(ChatFormatting.GOLD));

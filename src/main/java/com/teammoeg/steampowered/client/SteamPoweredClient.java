@@ -5,12 +5,11 @@ import com.teammoeg.steampowered.network.ponder.SPPonderPlugin;
 import com.teammoeg.steampowered.registrate.SPBlocks;
 
 import net.createmod.ponder.foundation.PonderIndex;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class SteamPoweredClient {
     public static void addClientListeners(IEventBus forgeEventBus, IEventBus modEventBus) {

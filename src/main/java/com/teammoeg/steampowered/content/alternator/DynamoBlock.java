@@ -16,6 +16,7 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -105,7 +106,7 @@ public class DynamoBlock extends DirectionalKineticBlock implements IBE<DynamoBl
     }*/
 
    @Override
-    public void appendHoverText(ItemStack i, BlockGetter w, List<Component> t, TooltipFlag f) {
+    public void appendHoverText(ItemStack i, Item.TooltipContext w, List<Component> t, TooltipFlag f) {
         t.add(Component.translatable("tooltip.steampowered.alternator").withStyle(ChatFormatting.GRAY));
     	if(Screen.hasShiftDown()) {
     		t.add(Component.translatable("tooltip.steampowered.alternator.thanks").withStyle(ChatFormatting.GOLD));

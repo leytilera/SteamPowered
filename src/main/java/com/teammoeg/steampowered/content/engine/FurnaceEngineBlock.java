@@ -1,5 +1,6 @@
 package com.teammoeg.steampowered.content.engine;
 
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllShapes;
 import com.simibubi.create.foundation.block.IBE;
 import com.teammoeg.steampowered.block.SPBlockPartials;
@@ -16,19 +17,22 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.util.TriState;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class FurnaceEngineBlock extends OldEngineBlock implements IBE<FurnaceEngineTileEntity> {
+
+    public static final MapCodec<FurnaceEngineBlock> CODEC = simpleCodec(FurnaceEngineBlock::new);
 
     public FurnaceEngineBlock(Properties properties) {
         super(properties);
@@ -75,7 +79,7 @@ public class FurnaceEngineBlock extends OldEngineBlock implements IBE<FurnaceEng
         if (event.getFace().getAxis().isVertical())
             return;
         if (state.getBlock() instanceof AbstractFurnaceBlock)
-            event.setUseBlock(Event.Result.DENY);
+            event.setUseBlock(TriState.FALSE); //TODO: Verify
     }
 
     @Override
@@ -86,6 +90,11 @@ public class FurnaceEngineBlock extends OldEngineBlock implements IBE<FurnaceEng
     @Override
     public BlockEntityType<? extends FurnaceEngineTileEntity> getBlockEntityType() {
         return SPBlockEntities.FURNACE_ENGINE.get();
+    }
+
+    @Override
+    protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
+        return CODEC;
     }
 
 

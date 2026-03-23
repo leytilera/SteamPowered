@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#c:plates/brass",
+    {
+      "id":"#c:plates/bronze",
+      "required":false
+    }
+  ]
+}

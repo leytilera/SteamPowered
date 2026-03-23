@@ -1,0 +1,9 @@
+{
+  "values": [
+    "#c:ingots/brass",
+    {
+      "id":"#c:ingots/bronze",
+      "required":false
+    }
+  ]
+}

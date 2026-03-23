@@ -9,10 +9,9 @@ import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class CastIronSteamEngineBlock extends SteamEngineBlock implements IBE<Ca
         return SPBlockEntities.CAST_IRON_STEAM_ENGINE.get();
     }
     @Override
-	public void appendHoverText(ItemStack i, BlockGetter w, List<Component> t,
+	public void appendHoverText(ItemStack i, Item.TooltipContext w, List<Component> t,
 			TooltipFlag f) {
     	if(Screen.hasShiftDown()) {
     		t.add(Component.translatable("tooltip.steampowered.engine.brief").withStyle(ChatFormatting.GOLD));

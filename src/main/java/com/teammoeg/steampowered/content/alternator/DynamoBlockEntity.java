@@ -7,18 +7,19 @@ import com.teammoeg.steampowered.oldcreatestuff.IGoggleInformation;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Adapted from: Create: Crafts & Additions under the MIT License
@@ -28,7 +29,6 @@ import java.util.List;
 public class DynamoBlockEntity extends KineticBlockEntity implements IGoggleInformation {
 
     protected final InternalEnergyStorage energy;
-    private LazyOptional<IEnergyStorage> lazyEnergy;
     private boolean redstoneLocked = false;
     boolean working;
     
@@ -37,10 +37,16 @@ public class DynamoBlockEntity extends KineticBlockEntity implements IGoggleInfo
     public static final int IMPACT = SPConfig.COMMON.dynamoImpact.get(); // Impact on network
     public static final double EFFICIENCY = SPConfig.COMMON.dynamoEfficiency.get(); // Efficiency
 
+    public static final ICapabilityProvider<DynamoBlockEntity, Direction, IEnergyStorage> ENERGY_CAP = (DynamoBlockEntity te, Direction side) -> {
+        if (side==te.getBlockState().getValue(DynamoBlock.FACING)) {
+            return te.energy;
+        }
+        return null;
+    };
+
     public DynamoBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         energy = new InternalEnergyStorage(FE_CAPACITY, 0, MAX_FE_OUT);
-        lazyEnergy = LazyOptional.of(() -> energy);
     }
 
     @Override
@@ -74,21 +80,15 @@ public class DynamoBlockEntity extends KineticBlockEntity implements IGoggleInfo
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-        if (cap == ForgeCapabilities.ENERGY && side==getBlockState().getValue(DynamoBlock.FACING))// && !level.isClientSide
-            return lazyEnergy.cast();
-        return super.getCapability(cap, side);
-    }
-
-    public void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
+    public void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(compound, registries, clientPacket);
         energy.read(compound);
         redstoneLocked = compound.getBoolean("redstonelocked");
     }
 
     @Override
-    public void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
+    public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(compound, registries, clientPacket);
         energy.write(compound);
         compound.putBoolean("redstonelocked", redstoneLocked);
     }
@@ -115,8 +115,8 @@ public class DynamoBlockEntity extends KineticBlockEntity implements IGoggleInfo
     	Direction side=this.getBlockState().getValue(DynamoBlock.FACING);
         BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
         if (te != null) {
-	        te.getCapability(ForgeCapabilities.ENERGY, side.getOpposite())
-	        .ifPresent(ies->ies.receiveEnergy(energy.extractEnergy(ies.receiveEnergy(MAX_FE_OUT, true), false), false));
+            Optional.ofNullable(level.getCapability(Capabilities.EnergyStorage.BLOCK, te.getBlockPos(), side.getOpposite()))
+	            .ifPresent(ies->ies.receiveEnergy(energy.extractEnergy(ies.receiveEnergy(MAX_FE_OUT, true), false), false));
         }
     }
 

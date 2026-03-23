@@ -11,27 +11,38 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.FluidUtil;
 
 import java.util.List;
 
 public abstract class BoilerBlock extends Block {
+
 	@Override
-	public InteractionResult use(BlockState bs, Level w, BlockPos bp, Player pe, InteractionHand h, BlockHitResult br) {
-		if (FluidUtil.interactWithFluidHandler(pe, h,w, bp,br.getDirection()))
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+			Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if (FluidUtil.interactWithFluidHandler(player, hand, level, pos, hitResult.getDirection()))
+			return ItemInteractionResult.SUCCESS;
+		return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+	}
+
+	@Override
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player,
+			BlockHitResult hitResult) {
+		if (FluidUtil.interactWithFluidHandler(player, InteractionHand.MAIN_HAND, level, pos, hitResult.getDirection()))
 			return InteractionResult.SUCCESS;
-		return InteractionResult.PASS;
+		return super.useWithoutItem(state, level, pos, player, hitResult);
 	}
 
 	@Override
@@ -61,7 +72,7 @@ public abstract class BoilerBlock extends Block {
 	public abstract int getHuConsume();
 
 	@Override
-	public void appendHoverText(ItemStack i, BlockGetter w, List<Component> t, TooltipFlag f) {
+	public void appendHoverText(ItemStack i, Item.TooltipContext w, List<Component> t, TooltipFlag f) {
 		if (Screen.hasShiftDown()) {
 			t.add(Component.translatable("tooltip.steampowered.boiler.brief").withStyle(ChatFormatting.GOLD));
 			if (ClientUtils.hasGoggles()) {

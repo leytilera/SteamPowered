@@ -3,6 +3,7 @@ package com.teammoeg.steampowered.oldcreatestuff;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.HorizontalKineticBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -37,36 +38,42 @@ public class OldFlywheelBlockEntity extends GeneratingKineticBlockEntity {
 
     }
 
+    @Override
     public float getGeneratedSpeed() {
         return convertToDirection(this.generatedSpeed, this.getBlockState().getValue(HorizontalKineticBlock.HORIZONTAL_FACING));
     }
 
+    @Override
     public float calculateAddedStressCapacity() {
         return this.lastCapacityProvided = this.generatedCapacity;
     }
 
+    @Override
     protected AABB createRenderBoundingBox() {
         return super.createRenderBoundingBox().inflate(2.0);
     }
 
-    public void write(CompoundTag compound, boolean clientPacket) {
+    @Override
+    public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         compound.putFloat("GeneratedSpeed", this.generatedSpeed);
         compound.putFloat("GeneratedCapacity", this.generatedCapacity);
         compound.putInt("Cooldown", this.stoppingCooldown);
-        super.write(compound, clientPacket);
+        super.write(compound, registries, clientPacket);
     }
 
-    protected void read(CompoundTag compound, boolean clientPacket) {
+    @Override
+    protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         this.generatedSpeed = compound.getFloat("GeneratedSpeed");
         this.generatedCapacity = compound.getFloat("GeneratedCapacity");
         this.stoppingCooldown = compound.getInt("Cooldown");
-        super.read(compound, clientPacket);
+        super.read(compound, registries, clientPacket);
         if (clientPacket) {
             this.visualSpeed.withSpeed(0.03125F).target(this.getGeneratedSpeed());
         }
 
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.level.isClientSide) {

@@ -7,13 +7,13 @@ import com.tterrag.registrate.builders.FluidBuilder;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.createmod.catnip.theme.Color;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 import org.joml.Vector3f;
 
@@ -22,20 +22,17 @@ import java.util.function.Supplier;
 import static com.teammoeg.steampowered.SteamPowered.REGISTRATE;
 
 public class SPFluids {
-    static {
-        REGISTRATE.setCreativeTab(SPTabs.SP_BASE_TAB);
-    }
-
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = REGISTRATE
+    
+    public static final FluidEntry<BaseFlowingFluid.Flowing> STEAM = REGISTRATE
             .standardFluid("steam", SPFluids.SolidRenderedPlaceableFluidType.create(0xDEDEDE, () -> 1f / 8f))
             .lang("Steam")
             .properties(b -> b.density(-10).viscosity(1).temperature(473).canPushEntity(false)
                     .canConvertToSource(false).canDrown(true))
             .fluidProperties(b -> b.slopeFindDistance(3).explosionResistance(100F))
             .tag(SPTags.STEAM)
-            .source(ForgeFlowingFluid.Source::new)
+            .source(BaseFlowingFluid.Source::new)
             .bucket()
-            .tag(TagKey.create(ForgeRegistries.ITEMS.getRegistryKey(), AllTags.NameSpace.FORGE.id("buckets/steam")))
+            .tag(TagKey.create(BuiltInRegistries.ITEM.key(), AllTags.NameSpace.COMMON.id("buckets/steam")))
             .build()
             .register();
 

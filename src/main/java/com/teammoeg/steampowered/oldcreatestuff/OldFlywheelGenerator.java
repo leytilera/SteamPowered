@@ -6,8 +6,8 @@ import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.generators.BlockModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.BlockModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 public class OldFlywheelGenerator extends SpecialBlockStateGen {
     public OldFlywheelGenerator() {

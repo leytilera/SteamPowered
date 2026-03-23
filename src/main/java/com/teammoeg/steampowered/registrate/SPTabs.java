@@ -1,60 +1,30 @@
 package com.teammoeg.steampowered.registrate;
 
+import static com.teammoeg.steampowered.SteamPowered.REGISTRATE;
+
 import com.teammoeg.steampowered.SteamPowered;
+
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SPTabs {
     private static final DeferredRegister<CreativeModeTab> REGISTER =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, SteamPowered.MODID);
 
-    public static final RegistryObject<CreativeModeTab> SP_BASE_TAB = REGISTER.register("base",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> SP_BASE_TAB = REGISTER.register("base",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.steampowered.base"))
                     .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
                     .icon(SPBlocks.STEEL_FLYWHEEL::asStack)
-                    .displayItems((a, b) -> {
-
-                        b.accept(SPBlocks.BRONZE_BOILER);
-                        b.accept(SPBlocks.BRONZE_BURNER);
-                        b.accept(SPBlocks.BRONZE_STEAM_ENGINE);
-                        b.accept(SPBlocks.BRONZE_FLYWHEEL);
-                        b.accept(SPBlocks.BRONZE_COGWHEEL);
-                        b.accept(SPBlocks.BRONZE_LARGE_COGWHEEL);
-
-                        b.accept(SPBlocks.CAST_IRON_BOILER);
-                        b.accept(SPBlocks.CAST_IRON_BURNER);
-                        b.accept(SPBlocks.CAST_IRON_STEAM_ENGINE);
-                        b.accept(SPBlocks.CAST_IRON_FLYWHEEL);
-                        b.accept(SPBlocks.CAST_IRON_COGWHEEL);
-                        b.accept(SPBlocks.CAST_IRON_LARGE_COGWHEEL);
-
-                        b.accept(SPBlocks.STEEL_BOILER);
-                        b.accept(SPBlocks.STEEL_BURNER);
-                        b.accept(SPBlocks.STEEL_STEAM_ENGINE);
-                        b.accept(SPBlocks.STEEL_FLYWHEEL);
-                        b.accept(SPBlocks.STEEL_COGWHEEL);
-                        b.accept(SPBlocks.STEEL_LARGE_COGWHEEL);
-
-                        b.accept(SPBlocks.BRASS_FLYWHEEL);
-                        b.accept(SPBlocks.FURNACE_ENGINE);
-
-                        b.accept(SPBlocks.DYNAMO);
-
-                        b.accept(SPItems.BRONZE_SHEET);
-                        b.accept(SPItems.PRESSURIZED_GAS_CONTAINER);
-                        b.accept(SPItems.PRESSURIZED_STEAM_CONTAINER);
-                    })
                     .build());
 
     public static void register(IEventBus modEventBus) {
         REGISTER.register(modEventBus);
+        REGISTRATE.defaultCreativeTab(SP_BASE_TAB.getKey());
     }
 }

@@ -40,10 +40,6 @@ import static com.teammoeg.steampowered.SteamPowered.REGISTRATE;
 
 public class SPBlocks {
 
-    static {
-        REGISTRATE.setCreativeTab(SPTabs.SP_BASE_TAB);
-    }
-
     public static final BlockEntry<BronzeBurnerBlock> BRONZE_BURNER = REGISTRATE.block("bronze_burner", BronzeBurnerBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .transform(pickaxeOnly())
